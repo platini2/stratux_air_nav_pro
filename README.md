@@ -11,7 +11,7 @@ To make Air Navigation Pro use Stratux as a traffic, AHRS and GPS source we need
 
 You first need to SSH into your Stratux. On Windows you can use putty, on a Mac you can simply use your terminal:
 
-    ssh -l pi 169.254.1.1
+    ssh -l pi 192.168.10.1
 
 Enter the password "raspberry" and get root by entering
 
@@ -78,6 +78,14 @@ and find *"Port":4000* and change it to *"Port":43211*:
 Finally reboot the Stratux
 
     shutdown -r now
+    
+ ## Automated way of doing all previous
+ 
+	sudo sed -i 's|192.168.10|169.254.1|' /etc/network/interfaces
+	sudo sed -i 's|192.168.10|169.254.1|g' /etc/dhcp/dhcpd.conf 
+	sudo sed -i 's|:4000|:43211|' /etc/stratux.conf
+	sudo reboot
+
 and reconnect to Stratux. The web interface can now be found at:
 http://169.254.1.1/#/
 
